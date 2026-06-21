@@ -1,0 +1,224 @@
+/* AuraGuard Design Tokens & Global Style System */
+
+:root {
+  /* Colors - Dark Mode Default */
+  --bg-primary: #0a0712;
+  --bg-secondary: #120e22;
+  --bg-card: rgba(25, 20, 42, 0.4);
+  --border-color: rgba(194, 65, 198, 0.15);
+  --border-focus: #c241c6;
+  
+  --text-primary: #f8f6fc;
+  --text-secondary: #b3aeca;
+  --text-muted: #726c8d;
+  
+  --primary: #c241c6;
+  --secondary: #f55b8d;
+  --accent-cyan: #00f2fe;
+  --danger: #ff4b72;
+  --success: #2e7d32;
+  
+  --glass-bg: rgba(18, 14, 34, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: rgba(0, 0, 0, 0.4);
+  
+  /* Fonts */
+  --font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  
+  /* Spacing & Utilities */
+  --direction: ltr;
+  --align-start: left;
+  --align-end: right;
+  --transform-rtl: 1;
+}
+
+/* Light Mode Variables */
+:root.light {
+  --bg-primary: #f8f6fc;
+  --bg-secondary: #ffffff;
+  --bg-card: rgba(240, 235, 250, 0.5);
+  --border-color: rgba(194, 65, 198, 0.1);
+  --border-focus: #c241c6;
+  
+  --text-primary: #151125;
+  --text-secondary: #56516f;
+  --text-muted: #918baf;
+  
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(194, 65, 198, 0.15);
+  --glass-shadow: rgba(15, 10, 25, 0.08);
+}
+
+/* Arabic RTL Overrides */
+html[lang="ar"] {
+  --font-family: 'Cairo', 'Tajawal', sans-serif;
+  --direction: rtl;
+  --align-start: right;
+  --align-end: left;
+  --transform-rtl: -1;
+}
+
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+html, body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  direction: var(--direction);
+  text-align: var(--align-start);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Neon Glow Ambient Accents */
+.ambient-glow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  filter: blur(130px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+.glow-primary {
+  background-color: var(--primary);
+  top: 10%;
+  left: 5%;
+}
+
+.glow-secondary {
+  background-color: var(--secondary);
+  bottom: 20%;
+  right: 5%;
+}
+
+.glow-danger {
+  background-color: var(--danger);
+  top: 50%;
+  left: 45%;
+}
+
+/* Keyframes for animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(194, 65, 198, 0.4), 0 0 30px rgba(194, 65, 198, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(194, 65, 198, 0.8), 0 0 50px rgba(194, 65, 198, 0.4);
+  }
+}
+
+@keyframes pulseSOS {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 75, 114, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 20px rgba(255, 75, 114, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 75, 114, 0);
+  }
+}
+
+@keyframes floatAnimation {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes radarScan {
+  0% {
+    transform: scale(0.1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes textPulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes ringShake {
+  0%, 100% { transform: rotate(0); }
+  10%, 30%, 50%, 70%, 90% { transform: rotate(-5deg); }
+  20%, 40%, 60%, 80% { transform: rotate(5deg); }
+}
+
+@keyframes animateFadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes loaderFill {
+  0%   { width: 0%; }
+  100% { width: 90%; }
+}
+
+/* Common Classes */
+.float-card {
+  animation: floatAnimation 6s ease-in-out infinite;
+}
+
+.pulse-primary {
+  animation: pulseGlow 3s infinite;
+}
+
+.pulse-sos {
+  animation: pulseSOS 2s infinite;
+}
+
+.ring-active {
+  animation: ringShake 0.5s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: animateFadeIn 0.5s ease forwards;
+}
+
+/* Grid layout utility */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px var(--glass-shadow);
+  border-radius: 24px;
+}

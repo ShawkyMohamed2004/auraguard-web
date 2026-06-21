@@ -1,0 +1,545 @@
+/* ============================================================
+   DOWNLOAD PAGE — dl-styles.css
+   ============================================================ */
+
+@keyframes dlFadeUp {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes dlSplashBar {
+  from { width:0; }
+  to   { width:85%; }
+}
+@keyframes dlRingPop {
+  0%   { transform:scale(1);   opacity:.6; }
+  100% { transform:scale(2.2); opacity:0; }
+}
+@keyframes dlBlinkDot {
+  0%,100% { opacity:1; }
+  50%      { opacity:.3; }
+}
+@keyframes dlSOSPulse {
+  0%   { box-shadow: 0 0 0 0   rgba(255,75,114,.7); }
+  70%  { box-shadow: 0 0 0 18px rgba(255,75,114,0); }
+  100% { box-shadow: 0 0 0 0   rgba(255,75,114,0); }
+}
+@keyframes qrOverlayIn {
+  from { opacity:0; transform:scale(.9); }
+  to   { opacity:1; transform:scale(1); }
+}
+
+/* ── Page wrapper ── */
+.dl-page {
+  padding: 100px 5% 60px;
+  position: relative;
+  z-index: 10;
+  overflow-x: hidden; /* prevent phone from bleeding out */
+}
+
+/* ── Back button ── */
+.dl-back { margin-bottom: 20px; }
+.dl-back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: none; border: none;
+  color: var(--text-secondary); font-family: inherit;
+  font-size: .9rem; font-weight: 600; cursor: pointer;
+  transition: color .2s;
+}
+.dl-back-btn:hover { color: var(--text-primary); }
+
+/* ── Hero row ── */
+.dl-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 36px;
+  overflow: hidden; /* contain the phone */
+  min-height: calc(100vh - 120px);
+}
+.dl-hero__text {
+  display: flex; flex-direction: column;
+  align-items: flex-start; gap: 0;
+  justify-content: center;
+}
+.dl-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(245,91,141,.1); border: 1px solid rgba(245,91,141,.25);
+  color: var(--secondary); padding: 6px 14px; border-radius: 50px;
+  font-size: .78rem; font-weight: 700; margin-bottom: 12px;
+}
+.dl-title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 8px;
+  padding-bottom: 0.15em; /* prevents Arabic descenders from clipping */
+  overflow: visible;
+  background: linear-gradient(135deg, var(--text-primary) 30%, var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dl-sub {
+  font-size: 1rem; color: var(--text-secondary); line-height: 1.6;
+  margin-bottom: 12px; max-width: 480px;
+}
+.dl-rating {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+}
+.dl-stars { display: flex; gap: 3px; }
+.dl-rating-num { font-size: .95rem; font-weight: 800; color: var(--text-primary); }
+.dl-rating-count { font-size: .8rem; color: var(--text-muted); }
+
+/* ── Official store badges ── */
+/* Issue 5: side by side on all screen sizes, stack only at 380px */
+.dl-stores {
+  display: flex;
+  gap: 12px;
+  flex-wrap: nowrap;
+  margin-bottom: 12px;
+  width: 100%;
+  max-width: 420px;
+}
+.dl-store {
+  flex: 1;
+  min-width: 0;
+  display: inline-flex; align-items: center; gap: 11px;
+  border-radius: 12px; padding: 11px 16px;
+  text-decoration: none; cursor: pointer;
+  transition: transform .2s, box-shadow .2s, filter .2s;
+  border: 1px solid rgba(255,255,255,.09);
+  font-family: inherit;
+  position: relative; overflow: visible;
+}
+.dl-store:hover { transform: translateY(-2px); filter: brightness(1.12); }
+.dl-store--gplay {
+  background: #1a1a2e;
+  box-shadow: 0 4px 18px rgba(52,168,83,.15);
+}
+.dl-store--apple {
+  background: #1c1c1e;
+  box-shadow: 0 4px 18px rgba(0,0,0,.3);
+}
+.dl-store--full { width: 100%; justify-content: center; }
+.dl-store__text {
+  display: flex; flex-direction: column; align-items: flex-start;
+  line-height: 1.2;
+}
+.dl-store__small {
+  font-size: .58rem; font-weight: 500; letter-spacing: .04em;
+  text-transform: uppercase; color: rgba(255,255,255,.65);
+}
+.dl-store__big {
+  font-size: .9rem; font-weight: 700; color: #fff;
+}
+/* Issue 4: .dl-store__coming-tag removed entirely */
+
+/* ── Soon badge on store buttons ── */
+.dl-store__soon-badge {
+  position: absolute;
+  top: -9px;
+  right: -6px;
+  background: linear-gradient(135deg, #e040fb, #f06292);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 50px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(194,65,198,.5);
+  pointer-events: none;
+  z-index: 5;
+}
+html[lang="ar"] .dl-store__soon-badge {
+  right: auto;
+  left: -6px;
+}
+
+/* ── Beta button — prominent, gradient fill ── */
+.dl-beta-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  border: none;
+  color: #fff; padding: 14px 24px; border-radius: 12px;
+  font-family: inherit; font-size: .95rem; font-weight: 800;
+  text-decoration: none; cursor: pointer; margin-bottom: 16px;
+  width: 100%; max-width: 400px;
+  box-shadow: 0 6px 20px rgba(194,65,198,.35);
+  transition: transform .2s, box-shadow .2s;
+}
+.dl-beta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(194,65,198,.5);
+}
+
+/* ── Desktop QR hint (removed - replaced by QrSection below) ── */
+
+/* ── QR lightbox — compact centered box, no scroll ── */
+.qr-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,.8); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.qr-overlay__box {
+  position: relative;
+  background: var(--bg-secondary);
+  border: 1px solid rgba(194,65,198,.3);
+  border-radius: 20px;
+  padding: 28px 24px 24px;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  animation: qrOverlayIn .25s cubic-bezier(.22,1,.36,1) forwards;
+  box-shadow: 0 20px 60px rgba(0,0,0,.7), 0 0 30px rgba(194,65,198,.15);
+  width: fit-content;
+  max-width: 320px;
+  /* NO overflow, NO scroll needed */
+}
+.qr-overlay__close {
+  position: absolute; top: 10px; right: 10px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 50%; width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-secondary); cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.qr-overlay__close:hover { background: rgba(255,255,255,.15); color: #fff; }
+.qr-overlay__label {
+  font-size: .82rem; color: var(--text-secondary);
+  text-align: center; margin: 0; max-width: 220px; line-height: 1.4;
+}
+.qr-display img, .qr-display svg { display: block; border-radius: 8px; }
+
+/* ── Phone mockup ── */
+.dl-hero__phone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  padding-inline-end: 16px;
+  padding-top: 8px;
+}
+.dl-phone-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: .75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.dl-replay-btn {
+  background: none; border: none; color: var(--primary);
+  font-family: inherit; font-size: .72rem; font-weight: 700; cursor: pointer;
+  transition: opacity .2s;
+}
+.dl-replay-btn:hover { opacity: .7; }
+
+.dl-phone {
+  position: relative;
+  width: 248px;
+  height: 505px;
+  background: #12101f;
+  border: 2px solid rgba(255,255,255,.08);
+  outline: 5px solid #1c1933;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.04),
+    0 30px 60px rgba(0,0,0,.55),
+    0 0 30px rgba(194,65,198,.1);
+}
+.dl-phone__notch {
+  position: absolute; top:0; left:50%; transform:translateX(-50%);
+  width:80px; height:24px; background:#12101f;
+  border-bottom-left-radius:14px; border-bottom-right-radius:14px;
+  border: 2px solid rgba(255,255,255,.05); border-top:none;
+  z-index:10; display:flex; align-items:center; justify-content:center;
+}
+.dl-phone__cam {
+  width:7px; height:7px; border-radius:50%;
+  background:#090714; border:1.5px solid rgba(255,255,255,.12);
+}
+.dl-phone__btn {
+  position: absolute; background: #1c1933; border-radius:3px;
+}
+.dl-phone__btn--left      { width:3px; height:36px; left:-5px; top:100px; }
+.dl-phone__btn--right-top { width:3px; height:24px; right:-5px; top:90px; }
+.dl-phone__btn--right-bot { width:3px; height:40px; right:-5px; top:124px; }
+.dl-phone__screen {
+  width:100%; height:100%; background:#0d0a1a;
+  display:flex; flex-direction:column;
+  padding:28px 12px 18px;
+  overflow:hidden;
+}
+.dl-phone__status {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:0 4px; margin-bottom:10px; flex-shrink:0;
+}
+.dl-phone__time { font-size:.68rem; font-weight:700; color:rgba(255,255,255,.85); }
+.dl-phone__icons { display:flex; gap:5px; align-items:center; }
+.dl-phone__bar {
+  position:absolute; bottom:7px; left:50%; transform:translateX(-50%);
+  width:70px; height:4px; background:rgba(255,255,255,.18); border-radius:4px;
+}
+
+/* ── Splash inside phone ── */
+.dl-splash {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:10px; text-align:center;
+}
+.dl-splash__logo-wrap {
+  position:relative; width:76px; height:76px;
+  display:flex; align-items:center; justify-content:center; margin-bottom:4px;
+}
+.dl-splash__ring {
+  position:absolute; inset:0; border-radius:22px;
+  animation:dlRingPop 2.2s ease-out infinite;
+}
+.dl-splash__ring--1 { background:rgba(194,65,198,.2); }
+.dl-splash__ring--2 { background:rgba(194,65,198,.12); animation-delay:.9s; }
+.dl-splash__logo {
+  width:64px; height:64px; border-radius:18px; object-fit:contain;
+  position:relative; z-index:2;
+  box-shadow:0 0 20px rgba(194,65,198,.45);
+}
+.dl-splash__name {
+  font-size:1rem; font-weight:900; margin:0;
+  background:linear-gradient(135deg,#fff 0%,var(--primary) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+.dl-splash__loader {
+  width:100px; height:3px; background:rgba(255,255,255,.06);
+  border-radius:3px; overflow:hidden;
+}
+.dl-splash__bar {
+  height:100%;
+  background:linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius:3px;
+  animation:dlSplashBar 1.6s ease forwards;
+  width:0;
+}
+.dl-splash__txt { font-size:.6rem; color:rgba(255,255,255,.35); }
+
+/* ── Home screen inside phone (matches real app) ── */
+.dl-home {
+  flex:1; display:flex; flex-direction:column;
+  gap:10px; overflow:hidden;
+}
+.dl-home__header {
+  display:flex; justify-content:space-between; align-items:center;
+  flex-shrink:0;
+}
+.dl-home__profile { display:flex; align-items:center; gap:8px; }
+.dl-home__avatar {
+  width:30px; height:30px; border-radius:50%;
+  background:linear-gradient(135deg, var(--primary), var(--secondary));
+  display:flex; align-items:center; justify-content:center;
+  font-size:.8rem; font-weight:800; color:#fff; flex-shrink:0;
+}
+.dl-home__welcome { display:flex; flex-direction:column; }
+.dl-home__welcome span { font-size:.55rem; color:rgba(255,255,255,.4); }
+.dl-home__welcome strong { font-size:.72rem; font-weight:700; color:#fff; }
+.dl-home__bell {
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
+  border-radius:50%; width:28px; height:28px;
+  display:flex; align-items:center; justify-content:center;
+  color:rgba(255,255,255,.6); cursor:pointer; flex-shrink:0;
+}
+
+/* Status card */
+.dl-home__status-card {
+  display:flex; align-items:center; gap:10px;
+  background:rgba(194,65,198,.08); border:1px solid rgba(194,65,198,.2);
+  border-radius:14px; padding:10px 12px; flex-shrink:0;
+}
+.dl-home__shield-wrap {
+  position:relative; width:32px; height:32px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--primary);
+}
+.dl-home__shield-pulse {
+  position:absolute; inset:-4px; border-radius:50%;
+  background:rgba(194,65,198,.2);
+  animation:dlRingPop 2s ease-out infinite;
+}
+.dl-home__status-text { flex:1; min-width:0; }
+.dl-home__status-text strong { font-size:.72rem; font-weight:800; color:#fff; display:block; }
+.dl-home__status-text span   { font-size:.58rem; color:rgba(255,255,255,.45); display:block; }
+.dl-home__status-dot {
+  width:8px; height:8px; border-radius:50%; background:#81c784; flex-shrink:0;
+  animation:dlBlinkDot 1.8s infinite;
+}
+
+/* SOS area */
+.dl-home__sos-area {
+  display:flex; flex-direction:column; align-items:center; gap:6px; flex:1;
+  justify-content:center;
+}
+.dl-home__sos {
+  width:90px; height:90px; border-radius:50%;
+  background:linear-gradient(135deg, #ff4b72 0%, #d32f2f 100%);
+  border:none; color:#fff; font-size:1.1rem; font-weight:900; letter-spacing:.08em;
+  cursor:pointer; position:relative;
+  box-shadow:0 8px 24px rgba(255,75,114,.45);
+  animation:dlSOSPulse 2s infinite;
+}
+.dl-home__sos-hint { font-size:.58rem; color:rgba(255,255,255,.35); }
+
+/* Shortcuts */
+.dl-home__shortcuts {
+  display:flex; gap:8px; flex-shrink:0;
+  background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06);
+  border-radius:14px; padding:8px 10px;
+}
+.dl-home__shortcut {
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:5px;
+}
+.dl-home__shortcut-icon {
+  width:34px; height:34px; border-radius:10px;
+  background:color-mix(in srgb, var(--sc-color,#c241c6) 12%, transparent);
+  border:1px solid color-mix(in srgb, var(--sc-color,#c241c6) 30%, transparent);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--sc-color,#c241c6);
+}
+.dl-home__shortcut span { font-size:.55rem; color:rgba(255,255,255,.5); text-align:center; }
+
+/* ── Details row ── */
+.dl-details-row {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:24px; margin-bottom:32px;
+}
+/* Issue 6: when only checklist (no QR card), span full width */
+.dl-details-row--single {
+  grid-template-columns: 1fr;
+}
+.dl-details-row--single .dl-checklist {
+  max-width: 700px;
+  margin-inline: auto;
+  width: 100%;
+}
+.dl-checklist { padding:32px; }
+.dl-checklist h3 {
+  font-size:1.25rem; font-weight:800; margin-bottom:16px;
+}
+.dl-checks { display:flex; flex-direction:column; gap:12px; }
+.dl-check-item { display:flex; align-items:center; gap:10px; font-size:.88rem; font-weight:500; }
+
+/* ── QrSection ── */
+.dl-qr-section {
+  display: flex; align-items: center; gap: 20px;
+  padding: 28px 32px;
+}
+.dl-qr-section--compact { padding: 20px 24px; }
+
+.dl-qr-expand-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: none; border: none; color: var(--primary);
+  font-family: inherit; font-size: .75rem; font-weight: 700;
+  cursor: pointer; padding: 0; margin-top: 4px;
+  transition: opacity .2s;
+}
+.dl-qr-expand-btn:hover { opacity: .7; }
+
+/* QR row inside store panel (kept for compat) */
+.dl-qr-row { display:flex; align-items:center; gap:16px; }
+.dl-qr-btn {
+  position:relative; cursor:pointer; background:none; border:2px solid rgba(194,65,198,.2);
+  border-radius:12px; padding:6px; flex-shrink:0; overflow:hidden;
+  transition:border-color .2s, box-shadow .2s;
+}
+.dl-qr-btn:hover { border-color:var(--primary); box-shadow:0 0 16px rgba(194,65,198,.25); }
+.dl-qr-btn__hover {
+  position:absolute; inset:0; background:rgba(194,65,198,.55);
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; opacity:0; transition:opacity .2s; border-radius:10px;
+}
+.dl-qr-btn:hover .dl-qr-btn__hover { opacity:1; }
+.dl-qr-info { display:flex; flex-direction:column; gap:5px; }
+.dl-qr-info strong { font-size:.88rem; font-weight:700; color:var(--text-primary); }
+.dl-qr-info span   { font-size:.75rem; color:var(--text-secondary); }
+
+/* ── Issue 6: QR visible only on desktop ── */
+.dl-hero-qr { display: flex; }
+@media (max-width: 1023px) {
+  .dl-hero-qr { display: none; }
+}
+
+/* RTL */
+html[lang="ar"] .dl-hero__text  { align-items:flex-start; }
+html[lang="ar"] .dl-stores       { flex-direction:row; }
+html[lang="ar"] .dl-phone__status { flex-direction:row-reverse; }
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .dl-hero { grid-template-columns:1fr; gap:28px; }
+  .dl-hero__text { align-items:center; text-align:center; }
+  .dl-sub { max-width:100%; }
+  .dl-stores { justify-content:center; max-width: 100%; }
+  .dl-rating { justify-content:center; }
+  .dl-beta-btn { margin-inline: auto; }
+  .dl-hero__phone { padding-inline-end: 0; }
+  html[lang="ar"] .dl-hero__text { align-items:center; }
+}
+@media (max-width: 768px) {
+  .dl-details-row { grid-template-columns:1fr; }
+  .dl-page { padding:90px 4% 40px; }
+}
+/* Issue 5: only stack at very narrow screens */
+@media (max-width: 380px) {
+  .dl-stores { flex-direction:column; align-items:center; }
+  .dl-store { width:100%; flex: none; }
+}
+@media (max-width: 500px) {
+  .dl-title { font-size:1.8rem; }
+  .dl-phone { width:220px; height:448px; }
+  .dl-phone-label { width: 220px; }
+}
+
+/* ── QR inline in hero (above-the-fold) — desktop only (Issue 6) ── */
+/* .dl-hero-qr display rule is in the responsive block above */
+.dl-hero-qr {
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  max-width: 340px;
+  margin-top: 4px;
+}
+.dl-hero-qr__thumb {
+  position: relative;
+  background: none;
+  border: 2px solid rgba(194,65,198,.25);
+  border-radius: 10px;
+  padding: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: border-color .2s, box-shadow .2s;
+}
+.dl-hero-qr__thumb:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 14px rgba(194,65,198,.3);
+}
+.dl-hero-qr__zoom {
+  position: absolute; inset: 0;
+  background: rgba(194,65,198,.5);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; opacity: 0; transition: opacity .2s;
+  border-radius: 8px;
+}
+.dl-hero-qr__thumb:hover .dl-hero-qr__zoom { opacity: 1; }
+.dl-hero-qr__text {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.dl-hero-qr__text strong {
+  font-size: .82rem; font-weight: 700; color: var(--text-primary);
+}
+.dl-hero-qr__text span {
+  font-size: .72rem; color: var(--text-secondary);
+}
+
+/* ── Responsive update for hero-qr ── */
+@media (max-width: 1100px) {
+  .dl-hero-qr { margin-inline: auto; }
+}
