@@ -61,13 +61,11 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ onSelectFeature }) =
             key={idx} 
             className="feature-card glass-panel hover-3d"
             onClick={() => {
-              if (feature.id !== 'recording') {
-                onSelectFeature(feature.id);
-                document.getElementById('root')?.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                onSelectFeature('sos');
-                document.getElementById('root')?.scrollIntoView({ behavior: 'smooth' });
-              }
+              onSelectFeature(feature.id !== 'recording' ? feature.id : 'sos');
+              // Scroll to hero section where the PhoneSimulator lives
+              setTimeout(() => {
+                document.getElementById('hero-section')?.scrollIntoView({ behavior: 'smooth' });
+              }, 50);
             }}
           >
             <div className="card-icon">{feature.icon}</div>

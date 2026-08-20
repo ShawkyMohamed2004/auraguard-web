@@ -6,3 +6,6 @@ dist/
 *.log
 .DS_Store
 Thumbs.db
+
+# Dev-only reference screenshots (same images served from public/screenshots/)
+app-ui-screenshot/

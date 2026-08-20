@@ -69,7 +69,7 @@ export const Hero: React.FC<HeroProps> = ({ activeState, setActiveState, onDownl
   }, []);
 
   return (
-    <section className={`hero-section ${isVisible ? 'hero-visible' : ''}`} ref={ref}>
+    <section id="hero-section" className={`hero-section ${isVisible ? 'hero-visible' : ''}`} ref={ref}>
       {/* Floating orbs */}
       <div className="hero-orb hero-orb--1" aria-hidden="true" />
       <div className="hero-orb hero-orb--2" aria-hidden="true" />

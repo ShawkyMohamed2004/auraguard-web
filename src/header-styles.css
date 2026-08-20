@@ -370,6 +370,21 @@ html[lang="ar"] .coming-soon-toast {
   color: var(--text-primary);
   text-decoration: underline;
 }
+/* Button variant for footer links (replaces dead <a href="#"> anchors) */
+.footer-link-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-family);
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+.footer-link-btn:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
 .footer-bottom {
   border-top: 1px solid var(--border-color);
   width: 100%;
